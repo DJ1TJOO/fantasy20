@@ -1,0 +1,18 @@
+{
+	"_comment" : "Blocks",
+	"block.fantasy20.research_table" : "Research Table",
+	"block.fantasy20.doorlock" : "Doorlock",
+	"block.fantasy20.floor_frame" : "Floor Frame",
+	"block.fantasy20.metal_ore" : "Metal Ore",
+	
+	"_comment" : "Items",
+	"item.fantasy20.wooden_panel" : "Wooden Panel",
+	"item.fantasy20.stone_panel" : "Stone Panel",
+	"item.fantasy20.metal_panel" : "Metal Panel",
+	"item.fantasy20.metal" : "Metal",
+	"item.fantasy20.scrap" : "Scrap",
+	"item.fantasy20.blueprint" : "Blueprint",
+
+	"_comment" : "Creative tabs",
+	"itemGroup.Fantasy20": "Fantasy20"
+}

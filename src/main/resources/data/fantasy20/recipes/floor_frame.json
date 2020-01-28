@@ -1,0 +1,21 @@
+{
+   "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "xxx",
+        "x x",
+        "xxx"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:oak_log"
+        }
+    },
+    "result":
+    {
+        "item": "fantasy20:floor_frame",
+        "count": 1
+    } 
+}

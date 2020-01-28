@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom_rh",
+    "textures": {
+        "bottom": "fantasy20:block/doorlock_lower",
+        "top": "fantasy20:block/doorlock_upper"
+    }
+}

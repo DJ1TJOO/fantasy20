@@ -1,0 +1,11 @@
+{
+    "type": "minecraft:blasting",
+    "ingredient":
+    {
+        "item": "fantasy20:metal_ore"
+    },
+    "result": "fantasy20:metal",
+	"experience": 100,
+	"cookingtime": 200
+	
+}

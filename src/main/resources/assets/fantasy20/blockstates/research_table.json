@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"facing=north": { "model" : "fantasy20:block/research_table" },
+		"facing=south": { "model" : "fantasy20:block/research_table", "y" : 180 },
+		"facing=west": { "model" : "fantasy20:block/research_table", "y" : 270 },
+		"facing=east": { "model" : "fantasy20:block/research_table", "y" : 90 },
+		"facing=up": { "model" : "fantasy20:block/research_table" },
+		"facing=down": { "model" : "fantasy20:block/research_table" }
+	}
+}

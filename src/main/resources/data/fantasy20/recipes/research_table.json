@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "yyy",
+        "xyx",
+        "x x"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:iron_ingot"
+        },
+		 "y":
+        {
+            "item": "minecraft:oak_planks"
+        }
+    },
+    "result":
+    {
+        "item": "fantasy20:research_table",
+        "count": 1
+    }
+}
