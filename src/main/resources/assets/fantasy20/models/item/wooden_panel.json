@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "fantasy20:item/wooden_floor"
+        "layer0": "fantasy20:item/wooden_panel"
     }
 }

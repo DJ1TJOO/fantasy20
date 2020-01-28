@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "log_oak": "fantasy20:item/metal_floor",
-        "particle": "fantasy20:item/metal_floor"
+        "log_oak": "fantasy20:item/metal_panel",
+        "particle": "fantasy20:item/metal_panel"
     },
     "display": {
         "gui": {

@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 public class Scrap extends Item {
 
 	public Scrap(Properties properties) {
-		super(properties.maxStackSize(1000));
+		super(properties.maxStackSize(64));
 		setRegistryName("fantasy20:scrap");
 	}
 	

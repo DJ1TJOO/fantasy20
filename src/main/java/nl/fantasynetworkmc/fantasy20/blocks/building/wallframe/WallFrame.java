@@ -30,7 +30,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import nl.fantasynetworkmc.fantasy20.FloorTypes;
+import nl.fantasynetworkmc.fantasy20.PanelTypes;
 import nl.fantasynetworkmc.fantasy20.blocks.ModBlocks;
 import nl.fantasynetworkmc.fantasy20.items.ModItems;
 
@@ -40,7 +40,9 @@ public class WallFrame extends Block {
     public static final BooleanProperty CONNECTED_SOUTH = BooleanProperty.create("connected_south");
     public static final BooleanProperty CONNECTED_WEST = BooleanProperty.create("connected_west");
     public static final BooleanProperty CONNECTED_EAST = BooleanProperty.create("connected_east");
-    public static final IntegerProperty FRAME_TYPE = IntegerProperty.create("frame_type", 0, FloorTypes.values().length - 1);
+    public static final BooleanProperty CONNECTED_UP = BooleanProperty.create("connected_up");
+    public static final BooleanProperty CONNECTED_DOWN = BooleanProperty.create("connected_down");
+    public static final IntegerProperty FRAME_TYPE = IntegerProperty.create("frame_type", 0, PanelTypes.values().length - 1);
     	
 	public WallFrame() {
 		super(Properties.create(Material.WOOD)
@@ -49,29 +51,29 @@ public class WallFrame extends Block {
 				.harvestTool(ToolType.AXE)
 				.harvestLevel(0));
 		setRegistryName("fantasy20:wall_frame");
-		this.setDefaultState(this.getDefaultState().with(CONNECTED_EAST, Boolean.FALSE).with(CONNECTED_WEST, Boolean.FALSE).with(CONNECTED_SOUTH, Boolean.FALSE).with(CONNECTED_NORTH, Boolean.FALSE).with(FRAME_TYPE, FloorTypes.WOODEN.getValue()));
+		this.setDefaultState(this.getDefaultState().with(CONNECTED_UP, Boolean.FALSE).with(CONNECTED_DOWN, Boolean.FALSE).with(CONNECTED_EAST, Boolean.FALSE).with(CONNECTED_WEST, Boolean.FALSE).with(CONNECTED_SOUTH, Boolean.FALSE).with(CONNECTED_NORTH, Boolean.FALSE).with(FRAME_TYPE, PanelTypes.WOODEN.getValue()));
 	}
 	
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
-		builder.add(new IProperty[] {CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_WEST, CONNECTED_EAST, FRAME_TYPE});
+		builder.add(new IProperty[] {CONNECTED_UP, CONNECTED_DOWN, CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_WEST, CONNECTED_EAST, FRAME_TYPE});
 	}
 	
 	@Override
 	public BlockState getExtendedState(BlockState state, IBlockReader world, BlockPos pos) {
-		return state.with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH));
+		return state.with(CONNECTED_UP, isSideConnectable(world, pos, Direction.UP)).with(CONNECTED_DOWN, isSideConnectable(world, pos, Direction.DOWN)).with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH));
 	}
 	
 	@Override
 	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
 			BlockRayTraceResult hit) {
-		worldIn.setBlockState(pos, state.with(CONNECTED_EAST, isSideConnectable(worldIn, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(worldIn, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(worldIn, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(worldIn, pos, Direction.NORTH)));
+		worldIn.setBlockState(pos, state.with(CONNECTED_UP, isSideConnectable(worldIn, pos, Direction.UP)).with(CONNECTED_DOWN, isSideConnectable(worldIn, pos, Direction.DOWN)).with(CONNECTED_EAST, isSideConnectable(worldIn, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(worldIn, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(worldIn, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(worldIn, pos, Direction.NORTH)));
 		if(player.isSneaking() && player.getHeldItemMainhand().getItem().equals(Items.AIR)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
 				WallFrameTile te2 = (WallFrameTile) te;
-				if(!te2.getFloorType().equals(FloorTypes.NONE)) {
-					switch (te2.getFloorType()) {
+				if(!te2.getPanelType().equals(PanelTypes.NONE)) {
+					switch (te2.getPanelType()) {
 					case WOODEN:
 						spawnAsEntity(worldIn, pos, new ItemStack(ModItems.WOODEN_PANEL, 1));
 						break;
@@ -85,7 +87,7 @@ public class WallFrame extends Block {
 					default:
 						break;
 					}
-					te2.setFloorType(FloorTypes.NONE);
+					te2.setPanelType(PanelTypes.NONE);
 				}
 			}
 		}
@@ -96,14 +98,14 @@ public class WallFrame extends Block {
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				for (WallFrameTile woodenFloorFrameTile : list) {
-					if(woodenFloorFrameTile.getFloorType().equals(FloorTypes.NONE)) {
-						woodenFloorFrameTile.setFloorType(FloorTypes.WOODEN);
+					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
+						woodenFloorFrameTile.setPanelType(PanelTypes.WOODEN);
 						woodenFloorFrameTile.markDirty();
 						player.getHeldItemMainhand().shrink(1);
 					}
 				}
-				if(te2.getFloorType().equals(FloorTypes.NONE)) {
-					te2.setFloorType(FloorTypes.WOODEN);
+				if(te2.getPanelType().equals(PanelTypes.NONE)) {
+					te2.setPanelType(PanelTypes.WOODEN);
 					te2.markDirty();
 					player.getHeldItemMainhand().shrink(1);
 				}
@@ -115,14 +117,14 @@ public class WallFrame extends Block {
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				for (WallFrameTile woodenFloorFrameTile : list) {
-					if(woodenFloorFrameTile.getFloorType().equals(FloorTypes.NONE)) {
-						woodenFloorFrameTile.setFloorType(FloorTypes.STONE);
+					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
+						woodenFloorFrameTile.setPanelType(PanelTypes.STONE);
 						woodenFloorFrameTile.markDirty();
 						player.getHeldItemMainhand().shrink(1);
 					}
 				}
-				if(te2.getFloorType().equals(FloorTypes.NONE)) {
-					te2.setFloorType(FloorTypes.STONE);
+				if(te2.getPanelType().equals(PanelTypes.NONE)) {
+					te2.setPanelType(PanelTypes.STONE);
 					te2.markDirty();
 					player.getHeldItemMainhand().shrink(1);
 				}
@@ -134,14 +136,14 @@ public class WallFrame extends Block {
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				for (WallFrameTile woodenFloorFrameTile : list) {
-					if(woodenFloorFrameTile.getFloorType().equals(FloorTypes.NONE)) {
-						woodenFloorFrameTile.setFloorType(FloorTypes.METAL);
+					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
+						woodenFloorFrameTile.setPanelType(PanelTypes.METAL);
 						woodenFloorFrameTile.markDirty();
 						player.getHeldItemMainhand().shrink(1);
 					}
 				}
-				if(te2.getFloorType().equals(FloorTypes.NONE)) {
-					te2.setFloorType(FloorTypes.METAL);
+				if(te2.getPanelType().equals(PanelTypes.NONE)) {
+					te2.setPanelType(PanelTypes.METAL);
 					te2.markDirty();
 					player.getHeldItemMainhand().shrink(1);
 				}
@@ -161,7 +163,7 @@ public class WallFrame extends Block {
 		TileEntity te = worldIn.getTileEntity(pos);
 		if(te instanceof WallFrameTile) {
 			WallFrameTile te2 = (WallFrameTile) te;
-			switch (te2.getFloorType()) {
+			switch (te2.getPanelType()) {
 			case WOODEN:
 				spawnAsEntity(worldIn, pos, new ItemStack(ModItems.WOODEN_PANEL, 1));
 				break;
@@ -195,6 +197,8 @@ public class WallFrame extends Block {
 		TileEntity south = te.getWorld().getTileEntity(te.getPos().south());
 		TileEntity west = te.getWorld().getTileEntity(te.getPos().west());
 		TileEntity east = te.getWorld().getTileEntity(te.getPos().east());
+		TileEntity up = te.getWorld().getTileEntity(te.getPos().up());
+		TileEntity down = te.getWorld().getTileEntity(te.getPos().down());
 		if(north instanceof WallFrameTile) {
 			if(!list.contains((WallFrameTile) north)) {
 				list.add((WallFrameTile) north);
@@ -217,6 +221,18 @@ public class WallFrame extends Block {
 			if(!list.contains((WallFrameTile) east)) {
 				list.add((WallFrameTile) east);
 				list.addAll(getNeighboringTiles((WallFrameTile)east, list));
+			}
+		}
+		if(up instanceof WallFrameTile) {
+			if(!list.contains((WallFrameTile) up)) {
+				list.add((WallFrameTile) up);
+				list.addAll(getNeighboringTiles((WallFrameTile)up, list));
+			}
+		}
+		if(down instanceof WallFrameTile) {
+			if(!list.contains((WallFrameTile) down)) {
+				list.add((WallFrameTile) down);
+				list.addAll(getNeighboringTiles((WallFrameTile)down, list));
 			}
 		}
 		return list;
@@ -256,7 +272,7 @@ public class WallFrame extends Block {
 	    TileEntity te = reader.getTileEntity(pos);
 	    if(te instanceof WallFrameTile) {
 	    	WallFrameTile te2 = (WallFrameTile)te;
-	    	if(!te2.getFloorType().equals(FloorTypes.NONE)) {
+	    	if(!te2.getPanelType().equals(PanelTypes.NONE)) {
 	    		shapes.add(Block.makeCuboidShape(0, 0.125, 0, 16, 0.875, 16));
 	    	}
 	    }

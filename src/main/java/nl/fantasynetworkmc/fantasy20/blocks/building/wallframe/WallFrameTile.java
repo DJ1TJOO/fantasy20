@@ -4,16 +4,16 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
-import nl.fantasynetworkmc.fantasy20.FloorTypes;
+import nl.fantasynetworkmc.fantasy20.PanelTypes;
 import nl.fantasynetworkmc.fantasy20.blocks.ModBlocks;
 
 public class WallFrameTile extends TileEntity {
 
-	private FloorTypes floor_type;
+	private PanelTypes panel_type;
 	
 	public WallFrameTile() {
-		super(ModBlocks.FLOOR_FRAME_TILE);
-		floor_type = FloorTypes.NONE;
+		super(ModBlocks.WALL_FRAME_TILE);
+		panel_type = PanelTypes.NONE;
 	}
 	
 	@Override
@@ -32,14 +32,14 @@ public class WallFrameTile extends TileEntity {
 	@Override
 	public void read(CompoundNBT tag) {
 		CompoundNBT data = tag.getCompound("data");
-		floor_type = FloorTypes.valueOf(data.getString("type"));
+		panel_type = PanelTypes.valueOf(data.getString("type"));
 		super.read(tag);
 	}
 
 	@Override
 	public CompoundNBT write(CompoundNBT tag) {
 		CompoundNBT data = new CompoundNBT();
-		data.putString("type", floor_type.toString());
+		data.putString("type", panel_type.toString());
 		tag.put("data", data);
 		return super.write(tag);
 	}
@@ -50,12 +50,12 @@ public class WallFrameTile extends TileEntity {
 		super.onDataPacket(net, pkt);
 	}
 
-	public FloorTypes getFloorType() {
-		return floor_type;
+	public PanelTypes getPanelType() {
+		return panel_type;
 	}
 
-	public void setFloorType(FloorTypes type) {
-		this.floor_type = type;
+	public void setPanelType(PanelTypes type) {
+		this.panel_type = type;
 	}
 
 }

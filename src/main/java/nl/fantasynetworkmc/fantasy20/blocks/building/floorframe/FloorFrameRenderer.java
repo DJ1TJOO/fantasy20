@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
-import nl.fantasynetworkmc.fantasy20.FloorTypes;
+import nl.fantasynetworkmc.fantasy20.PanelTypes;
 import nl.fantasynetworkmc.fantasy20.items.ModItems;
 
 @SuppressWarnings("deprecation")
@@ -16,8 +16,8 @@ public class FloorFrameRenderer extends TileEntityRenderer<FloorFrameTile> {
 	public void render(FloorFrameTile te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
 		super.render(te, x, y, z, partialTicks, destroyStage);
-		if(!te.getFloorType().equals(FloorTypes.NONE)) {
-			switch (te.getFloorType()) {
+		if(!te.getPanelType().equals(PanelTypes.NONE)) {
+			switch (te.getPanelType()) {
 			case WOODEN:
 				GlStateManager.pushMatrix();
 				{

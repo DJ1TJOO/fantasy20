@@ -5,6 +5,8 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrame;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrameTile;
+import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrame;
+import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrameTile;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLock;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLockContainer;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLockTile;
@@ -35,4 +37,8 @@ public class ModBlocks {
 	public static FloorFrame FLOOR_FRAME;
 	@ObjectHolder("fantasy20:floor_frame")
 	public static TileEntityType<FloorFrameTile> FLOOR_FRAME_TILE;
+	@ObjectHolder("fantasy20:wall_frame")
+	public static WallFrame WALL_FRAME;
+	@ObjectHolder("fantasy20:wall_frame")
+	public static TileEntityType<WallFrameTile> WALL_FRAME_TILE;
 }

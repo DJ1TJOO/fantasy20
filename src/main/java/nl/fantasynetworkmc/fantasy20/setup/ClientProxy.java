@@ -8,6 +8,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import nl.fantasynetworkmc.fantasy20.blocks.ModBlocks;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrameRenderer;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrameTile;
+import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrameRenderer;
+import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrameTile;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.screen.DoorLockScreen;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTableScreen;
 
@@ -29,6 +31,7 @@ public class ClientProxy implements IProxy {
 		ScreenManager.registerFactory(ModBlocks.DOORLOCK_CONTAINER, DoorLockScreen::new);
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(FloorFrameTile.class, new FloorFrameRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(WallFrameTile.class, new WallFrameRenderer());
 	}
 
 }

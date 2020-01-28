@@ -29,9 +29,12 @@ import nl.fantasynetworkmc.fantasy20.items.Scrap;
 public class ResearchTableTile extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(() -> getCreateHandler());
-	public final int INPUT_SLOT = 0;
-	public final int INPUT_SLOT_2 = 1;
-	public final int OUTPUT_SLOT = 2;
+	public final int INPUT_SLOT = 0; //scrap
+	public final int INPUT_SLOT_2 = 1; // item
+	public final int OUTPUT_SLOT = 2; // blueprint
+	public final int INPUT_SLOT_3 = 3; //scrap
+	public final int INPUT_SLOT_4 = 4; //scrap
+	public final int INPUT_SLOT_5 = 5; //scrap
 	private int completed = 0;
 	private ResearchTableRecipe currentRecipe = null;
 	private UUID who = null;
@@ -57,7 +60,7 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 						if(h.getStackInSlot(INPUT_SLOT).getItem().equals(ModItems.SCRAP)) {
 							ResearchTableRecipe recipe = ResearchTable.getRecipe(h.getStackInSlot(INPUT_SLOT_2));
 							if(recipe != null) {
-								if(h.getStackInSlot(INPUT_SLOT).getCount() >= recipe.getScrap()) {
+								if(h.getStackInSlot(INPUT_SLOT).getCount() + h.getStackInSlot(INPUT_SLOT_3).getCount() + h.getStackInSlot(INPUT_SLOT_4).getCount() + h.getStackInSlot(INPUT_SLOT_5).getCount() >= recipe.getScrap()) {
 									second = 0;
 									timer = 0;
 									completed = 0;
@@ -68,7 +71,7 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 							}
 						}
 				} else {
-						if(h.getStackInSlot(INPUT_SLOT).getCount() < currentRecipe.getScrap() || !h.getStackInSlot(INPUT_SLOT_2).getItem().equals(currentRecipe.getInputItem())) {
+						if(h.getStackInSlot(INPUT_SLOT).getCount() + h.getStackInSlot(INPUT_SLOT_3).getCount() + h.getStackInSlot(INPUT_SLOT_4).getCount() + h.getStackInSlot(INPUT_SLOT_5).getCount() < currentRecipe.getScrap() || !h.getStackInSlot(INPUT_SLOT_2).getItem().equals(currentRecipe.getInputItem())) {
 							currentRecipe = null;
 							second = 0;
 							timer = 0;
@@ -80,7 +83,39 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 							//System.err.println(timer/100);
 						//	System.err.println(timer/currentRecipe.getTime() * 100);
 							if(timer > currentRecipe.getTime()) {
-								h.extractItem(INPUT_SLOT, currentRecipe.getScrap(), false);
+								int left = currentRecipe.getScrap();
+								if(h.getStackInSlot(INPUT_SLOT).getCount() > left) {
+									h.extractItem(INPUT_SLOT, left, false);
+									left -= left;
+								} else if(left > 0) {
+									int canExtract = Math.min(left, h.getStackInSlot(INPUT_SLOT).getCount());
+									h.extractItem(INPUT_SLOT, canExtract, false);
+									left -= canExtract;
+								}
+								if(h.getStackInSlot(INPUT_SLOT_3).getCount() > left) {
+									h.extractItem(INPUT_SLOT_3, left, false);
+									left -= left;
+								} else if(left > 0){
+									int canExtract = Math.min(left, h.getStackInSlot(INPUT_SLOT_3).getCount());
+									h.extractItem(INPUT_SLOT_3, canExtract, false);
+									left -= canExtract;
+								}
+								if(h.getStackInSlot(INPUT_SLOT_4).getCount() > left) {
+									h.extractItem(INPUT_SLOT_4, left, false);
+									left -= left;
+								} else if(left > 0) {
+									int canExtract = Math.min(left, h.getStackInSlot(INPUT_SLOT_4).getCount());
+									h.extractItem(INPUT_SLOT_4, canExtract, false);
+									left -= canExtract;
+								}
+								if(h.getStackInSlot(INPUT_SLOT_5).getCount() > left) {
+									h.extractItem(INPUT_SLOT_5, left, false);
+									left -= left;
+								} else if(left > 0) {
+									int canExtract = Math.min(left, h.getStackInSlot(INPUT_SLOT_5).getCount());
+									h.extractItem(INPUT_SLOT_5, canExtract, false);
+									left -= canExtract;
+								}
 								h.extractItem(INPUT_SLOT_2, 1, false);
 								h.insertItem(OUTPUT_SLOT, currentRecipe.getResultBlueprint(), false);
 								//System.err.println(" " + currentRecipe.toString());
@@ -188,11 +223,11 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
             		}
             	}
             	if(slot == OUTPUT_SLOT) {
-            		System.err.println("d");
+            		//System.err.println("d");
             		if(getCurrentRecipe() != null) {
-                		System.err.println("e");
+                		//System.err.println("e");
             			if(stack.equals(getCurrentRecipe().getResultBlueprint())) {
-                    		System.err.println("f");
+                    		//System.err.println("f");
             				return true;
             			}
             		}
