@@ -25,9 +25,12 @@ public class ResearchTableContainer extends Container {
         
 		//tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
         tileEntity.getHandler().ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT, 19, 33));
-            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT_2, 55, 33));
-            addSlot(new SlotItemHandler(h, tileEntity.OUTPUT_SLOT, 137, 33));
+            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT, 15, 23));//scrap
+            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT_3, 34, 23));//scrap
+            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT_4, 15, 42));//scrap
+            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT_5, 34, 42));//scrap
+            addSlot(new SlotItemHandler(h, tileEntity.INPUT_SLOT_2, 67, 33));//item
+            addSlot(new SlotItemHandler(h, tileEntity.OUTPUT_SLOT, 141, 33));//blueprint
         });
         //});
         layoutPlayerInventorySlots(8, 83);
