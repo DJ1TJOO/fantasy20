@@ -16,6 +16,7 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
@@ -57,17 +58,18 @@ public class WallFrame extends Block {
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(new IProperty[] {CONNECTED_UP, CONNECTED_DOWN, CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_WEST, CONNECTED_EAST, FRAME_TYPE});
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 	
 	@Override
 	public BlockState getExtendedState(BlockState state, IBlockReader world, BlockPos pos) {
-		return state.with(CONNECTED_UP, isSideConnectable(world, pos, Direction.UP)).with(CONNECTED_DOWN, isSideConnectable(world, pos, Direction.DOWN)).with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH));
+		return state.with(CONNECTED_UP, isSideConnectable(world, pos, Direction.UP, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_DOWN, isSideConnectable(world, pos, Direction.DOWN, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH, state.get(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 	
 	@Override
 	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
 			BlockRayTraceResult hit) {
-		worldIn.setBlockState(pos, state.with(CONNECTED_UP, isSideConnectable(worldIn, pos, Direction.UP)).with(CONNECTED_DOWN, isSideConnectable(worldIn, pos, Direction.DOWN)).with(CONNECTED_EAST, isSideConnectable(worldIn, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(worldIn, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(worldIn, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(worldIn, pos, Direction.NORTH)));
+		worldIn.setBlockState(pos, state.with(CONNECTED_UP, isSideConnectable(worldIn, pos, Direction.UP, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_DOWN, isSideConnectable(worldIn, pos, Direction.DOWN, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_EAST, isSideConnectable(worldIn, pos, Direction.EAST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_WEST, isSideConnectable(worldIn, pos, Direction.WEST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_SOUTH, isSideConnectable(worldIn, pos, Direction.SOUTH, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_NORTH, isSideConnectable(worldIn, pos, Direction.NORTH, state.get(BlockStateProperties.HORIZONTAL_FACING))));
 		if(player.isSneaking() && player.getHeldItemMainhand().getItem().equals(Items.AIR)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
@@ -251,19 +253,29 @@ public class WallFrame extends Block {
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos,
 			boolean isMoving) {		
-		state = state.with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH));
+		state = state.with(CONNECTED_UP, isSideConnectable(world, pos, Direction.UP, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_DOWN, isSideConnectable(world, pos, Direction.DOWN, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_EAST, isSideConnectable(world, pos, Direction.EAST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_WEST, isSideConnectable(world, pos, Direction.WEST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_SOUTH, isSideConnectable(world, pos, Direction.SOUTH, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_NORTH, isSideConnectable(world, pos, Direction.NORTH, state.get(BlockStateProperties.HORIZONTAL_FACING)));
 		world.setBlockState(pos, state);
 	}
 	
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	    Direction direction = context.getPlacementHorizontalFacing().getOpposite();
 		context.getWorld().notifyNeighborsOfStateChange(context.getPos(), this);
-		return this.getDefaultState().with(CONNECTED_EAST, isSideConnectable(context.getWorld(), context.getPos(), Direction.EAST)).with(CONNECTED_WEST, isSideConnectable(context.getWorld(), context.getPos(), Direction.WEST)).with(CONNECTED_SOUTH, isSideConnectable(context.getWorld(), context.getPos(), Direction.SOUTH)).with(CONNECTED_NORTH, isSideConnectable(context.getWorld(), context.getPos(), Direction.NORTH));
+		return this.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, direction).with(CONNECTED_UP, isSideConnectable(context.getWorld(), context.getPos(), Direction.UP, direction)).with(CONNECTED_DOWN, isSideConnectable(context.getWorld(), context.getPos(), Direction.DOWN, direction)).with(CONNECTED_EAST, isSideConnectable(context.getWorld(), context.getPos(), Direction.EAST, direction)).with(CONNECTED_WEST, isSideConnectable(context.getWorld(), context.getPos(), Direction.WEST, direction)).with(CONNECTED_SOUTH, isSideConnectable(context.getWorld(), context.getPos(), Direction.SOUTH, direction)).with(CONNECTED_NORTH, isSideConnectable(context.getWorld(), context.getPos(), Direction.NORTH, direction));
 	}
 	
-	private boolean isSideConnectable (IBlockReader world, BlockPos pos, Direction side) {
+	private boolean isSideConnectable (IBlockReader world, BlockPos pos, Direction side, Direction facing) {
         final BlockState state = world.getBlockState(pos.offset(side));
-        return (state == null) ? false : state.getBlock() == this;
+        if(state == null) {
+        	return false;
+        }
+        if(state.getBlock() != this) {
+        	return false;
+        }
+        if(!state.get(BlockStateProperties.HORIZONTAL_FACING).equals(facing)) {
+        	return false;
+        }
+        return true;
     }
 
 	private VoxelShape generateShape(BlockState state, IBlockReader reader, BlockPos pos) {
@@ -276,18 +288,67 @@ public class WallFrame extends Block {
 	    		shapes.add(Block.makeCuboidShape(0, 0.125, 0, 16, 0.875, 16));
 	    	}
 	    }
-	    if(!state.has(CONNECTED_EAST) || !state.get(CONNECTED_EAST)) {
-		    shapes.add(Block.makeCuboidShape(15, 0, 0, 16, 1, 16)); // north
+	    if(state.has(BlockStateProperties.HORIZONTAL_FACING)) {
+		    if(state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.SOUTH)) {
+			    if(!state.has(CONNECTED_UP) || !state.get(CONNECTED_UP)) {
+				    shapes.add(Block.makeCuboidShape(16, 16, 1, 0, 15, 0)); // up
+			    }
+			    if(!state.has(CONNECTED_DOWN) || !state.get(CONNECTED_DOWN)) {
+			    	shapes.add(Block.makeCuboidShape(16, 1, 1, 0, 0, 0)); // down
+			    }
+			    if(!state.has(CONNECTED_EAST) || !state.get(CONNECTED_EAST)) {
+				    shapes.add(Block.makeCuboidShape(16, 0, 0, 15, 16, 1)); // east
+			    }
+			    if(!state.has(CONNECTED_WEST) || !state.get(CONNECTED_WEST)) {
+				    shapes.add(Block.makeCuboidShape(0, 0, 0, 1, 16, 1)); // west
+			    }
+		    } else if(state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.NORTH)) {
+		    	if(!state.has(CONNECTED_UP) || !state.get(CONNECTED_UP)) {
+				    shapes.add(Block.makeCuboidShape(16, 16, 16, 0, 15, 15)); // up
+			    }
+			    if(!state.has(CONNECTED_DOWN) || !state.get(CONNECTED_DOWN)) {
+			    	shapes.add(Block.makeCuboidShape(0, 0, 15, 16, 1, 16)); // down
+			    }
+			    if(!state.has(CONNECTED_EAST) || !state.get(CONNECTED_EAST)) {
+				    shapes.add(Block.makeCuboidShape(15, 0, 15, 16, 16, 16)); // east
+			    }
+			    if(!state.has(CONNECTED_WEST) || !state.get(CONNECTED_WEST)) {
+				    shapes.add(Block.makeCuboidShape(1, 0, 15, 0, 16, 16)); // west
+			    }
+		    } else if(state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.WEST)) {
+		    	if(!state.has(CONNECTED_UP) || !state.get(CONNECTED_UP)) {
+				    shapes.add(Block.makeCuboidShape(16, 16, 16, 0, 15, 15)); // up
+			    }
+			    if(!state.has(CONNECTED_DOWN) || !state.get(CONNECTED_DOWN)) {
+			    	shapes.add(Block.makeCuboidShape(0, 0, 15, 16, 1, 16)); // down
+			    }
+			    if(!state.has(CONNECTED_SOUTH) || !state.get(CONNECTED_SOUTH)) {
+				    shapes.add(Block.makeCuboidShape(15, 0, 15, 16, 16, 16)); // east
+			    }
+			    if(!state.has(CONNECTED_NORTH) || !state.get(CONNECTED_NORTH)) {
+				    shapes.add(Block.makeCuboidShape(1, 0, 15, 0, 16, 16)); // west
+			    }
+		    } else if(state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.EAST)) {
+		    	if(!state.has(CONNECTED_UP) || !state.get(CONNECTED_UP)) {
+				    shapes.add(Block.makeCuboidShape(16, 16, 16, 0, 15, 15)); // up
+			    }
+			    if(!state.has(CONNECTED_DOWN) || !state.get(CONNECTED_DOWN)) {
+			    	shapes.add(Block.makeCuboidShape(0, 0, 15, 16, 1, 16)); // down
+			    }
+			    if(!state.has(CONNECTED_EAST) || !state.get(CONNECTED_EAST)) {
+				    shapes.add(Block.makeCuboidShape(15, 0, 15, 16, 16, 16)); // east
+			    }
+			    if(!state.has(CONNECTED_WEST) || !state.get(CONNECTED_WEST)) {
+				    shapes.add(Block.makeCuboidShape(1, 0, 15, 0, 16, 16)); // west
+			    }
+		    }
 	    }
-	    if(!state.has(CONNECTED_WEST) || !state.get(CONNECTED_WEST)) {
-		    shapes.add(Block.makeCuboidShape(0, 0, 0, 1, 1, 16)); // south
-	    }
-	    if(!state.has(CONNECTED_SOUTH) || !state.get(CONNECTED_SOUTH)) {
-		    shapes.add(Block.makeCuboidShape(1, 0, 15, 15, 1, 16)); // east
-	    }
-	    if(!state.has(CONNECTED_NORTH) || !state.get(CONNECTED_NORTH)) {
-		    shapes.add(Block.makeCuboidShape(1, 0, 0, 15, 1, 1)); // west
-	    }
+//	    if((!state.has(CONNECTED_SOUTH) || !state.get(CONNECTED_SOUTH)) && (!state.has(BlockStateProperties.HORIZONTAL_FACING) || (!state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.SOUTH) && !state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.NORTH)))) {
+//		    shapes.add(Block.makeCuboidShape(1, 0, 15, 15, 1, 16)); // south
+//	    }
+//	    if((!state.has(CONNECTED_NORTH) || !state.get(CONNECTED_NORTH)) && (!state.has(BlockStateProperties.HORIZONTAL_FACING) || (!state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.NORTH) && !state.get(BlockStateProperties.HORIZONTAL_FACING).equals(Direction.SOUTH)))) {
+//		    shapes.add(Block.makeCuboidShape(1, 0, 0, 15, 1, 1)); // north
+//	    }
 
 	    VoxelShape result = VoxelShapes.empty();
 	    for(VoxelShape shape : shapes)

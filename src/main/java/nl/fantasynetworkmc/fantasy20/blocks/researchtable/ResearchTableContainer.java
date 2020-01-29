@@ -3,6 +3,8 @@ package nl.fantasynetworkmc.fantasy20.blocks.researchtable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,6 +36,35 @@ public class ResearchTableContainer extends Container {
         });
         //});
         layoutPlayerInventorySlots(8, 83);
+	}
+	
+	@Override
+	public ItemStack transferStackInSlot(PlayerEntity player, int index) {
+		ItemStack returnStack = ItemStack.EMPTY;
+		final Slot slot = this.inventorySlots.get(index);
+		if (slot != null && slot.getHasStack()) {
+			final ItemStack slotStack = slot.getStack();
+			returnStack = slotStack.copy();
+
+			final int containerSlots = this.inventorySlots.size() - player.inventory.mainInventory.size();
+			if (index < containerSlots) {
+				if (!mergeItemStack(slotStack, containerSlots, this.inventorySlots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!mergeItemStack(slotStack, 0, containerSlots, false)) {
+				return ItemStack.EMPTY;
+			}
+			if (slotStack.getCount() == 0) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+			if (slotStack.getCount() == returnStack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+			slot.onTake(player, slotStack);
+		}
+		return returnStack;
 	}
 
 	@Override

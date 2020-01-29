@@ -57,7 +57,7 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 					second = 0;
 				//Fantasy20.LOGGER.info("ResearchTableTile.tick-server");
 				if(currentRecipe == null) {
-						if(h.getStackInSlot(INPUT_SLOT).getItem().equals(ModItems.SCRAP)) {
+						if(h.getStackInSlot(INPUT_SLOT).getItem().equals(ModItems.SCRAP) || h.getStackInSlot(INPUT_SLOT_3).getItem().equals(ModItems.SCRAP) || h.getStackInSlot(INPUT_SLOT_5).getItem().equals(ModItems.SCRAP) || h.getStackInSlot(INPUT_SLOT_4).getItem().equals(ModItems.SCRAP)) {
 							ResearchTableRecipe recipe = ResearchTable.getRecipe(h.getStackInSlot(INPUT_SLOT_2));
 							if(recipe != null) {
 								if(h.getStackInSlot(INPUT_SLOT).getCount() + h.getStackInSlot(INPUT_SLOT_3).getCount() + h.getStackInSlot(INPUT_SLOT_4).getCount() + h.getStackInSlot(INPUT_SLOT_5).getCount() >= recipe.getScrap()) {
@@ -207,7 +207,7 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 	}
 	
 	private IItemHandler getCreateHandler() {
-		return new ItemStackHandler(4) {
+		return new ItemStackHandler(6) {
 			@Override
             protected void onContentsChanged(int slot) {
                 markDirty();

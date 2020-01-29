@@ -63,7 +63,7 @@ public class ResearchTableScreen extends ContainerScreen<ResearchTableContainer>
         if(tileEntity.getCurrentRecipe() != null) {
         	int k = getCompletedLeft(24);
         	//System.err.println(k);
-        	this.blit(relX + 91, relY + 33, 176, 0, k, 17);
+        	this.blit(relX + 98, relY + 33, 176, 0, k, 17);
         }
 	}
 	

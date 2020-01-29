@@ -1,0 +1,107 @@
+{
+"variants": {
+			"frame_type=0,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden" },
+			"frame_type=0,connected_north=true,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top" },
+			"frame_type=0,connected_north=false,connected_south=true,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y" : 180 },
+			"frame_type=0,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y" : -90 },
+			"frame_type=0,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y" : 90 },
+			
+			"frame_type=0,connected_north=true,connected_south=true,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom"},
+			"frame_type=0,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom", "y" : 90 },
+			
+			"frame_type=0,connected_north=true,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left" },
+			"frame_type=0,connected_north=true,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y" : 90 },
+			"frame_type=0,connected_north=false,connected_south=true,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y" : 180 },
+			"frame_type=0,connected_north=false,connected_south=true,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y" : -90 },
+			
+			"frame_type=0,connected_north=true,connected_south=true,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom" },
+			"frame_type=0,connected_north=true,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y" : 90 },
+			"frame_type=0,connected_north=true,connected_south=true,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y" : 180 },
+			"frame_type=0,connected_north=false,connected_south=true,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y" : -90 },
+			
+			"frame_type=0,connected_north=true,connected_south=true,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom_right"},
+		
+			"facing=south,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_left" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_right" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right" },
+								
+			"facing=south,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_bottom" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_left_bottom" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_right_bottom" },
+			"facing=south,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right_bottom" },
+							
+			"facing=south,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right" },
+											
+			"facing=south,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right_bottom" },
+			"facing=south,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right_bottom" },
+		
+			"facing=north,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_right", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right", "y": 180 },
+								
+			"facing=north,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_right_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right_bottom", "y": 180 },
+							
+			"facing=north,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right", "y": 180 },
+											
+			"facing=north,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=false,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y": 180 },
+			"facing=north,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_west=true,connected_east=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right_bottom", "y": 180 },
+		
+			"facing=east,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_left", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_right", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right", "y": -90 },
+								
+			"facing=east,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_left_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_right_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right_bottom", "y": -90 },
+							
+			"facing=east,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right", "y": -90 },
+											
+			"facing=east,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right_bottom", "y": -90 },
+			"facing=east,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right_bottom", "y": -90 },
+		
+			"facing=west,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_right", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right", "y": 90 },
+								
+			"facing=west,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_right_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=false,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_left_right_bottom", "y": 90 },
+							
+			"facing=west,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=false,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right", "y": 90 },
+											
+			"facing=west,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=false": { "model" : "fantasy20:block/building/wall_frame/wooden_top_right_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=false,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_bottom", "y": 90 },
+			"facing=west,frame_type=1,connected_up=true,connected_down=true,connected_north=false,connected_south=false,connected_south=true,connected_north=true": { "model" : "fantasy20:block/building/wall_frame/wooden_top_left_right_bottom", "y": 90 }
+			
+		
+	}
+	
+}

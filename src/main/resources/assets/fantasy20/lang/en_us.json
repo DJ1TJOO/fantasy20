@@ -3,6 +3,7 @@
 	"block.fantasy20.research_table" : "Research Table",
 	"block.fantasy20.doorlock" : "Doorlock",
 	"block.fantasy20.floor_frame" : "Floor Frame",
+	"block.fantasy20.wall_frame" : "Wall Frame",
 	"block.fantasy20.metal_ore" : "Metal Ore",
 	
 	"_comment" : "Items",
