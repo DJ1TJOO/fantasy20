@@ -19,6 +19,7 @@ import nl.fantasynetworkmc.fantasy20.blocks.ModBlocks;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrame;
 import nl.fantasynetworkmc.fantasy20.blocks.building.floorframe.FloorFrameTile;
 import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrame;
+import nl.fantasynetworkmc.fantasy20.blocks.building.wallframe.WallFrameTile;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLock;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLockContainer;
 import nl.fantasynetworkmc.fantasy20.blocks.doorlock.DoorLockTile;
@@ -66,7 +67,7 @@ public class RegistryEvents {
        e.getRegistry().register(TileEntityType.Builder.create(ResearchTableTile::new, ModBlocks.RESEARCH_TABLE).build(null).setRegistryName("fantasy20:research_table"));
        e.getRegistry().register(TileEntityType.Builder.create(DoorLockTile::new, ModBlocks.DOORLOCK).build(null).setRegistryName("fantasy20:doorlock"));
        e.getRegistry().register(TileEntityType.Builder.create(FloorFrameTile::new, ModBlocks.FLOOR_FRAME).build(null).setRegistryName("fantasy20:floor_frame"));
-       e.getRegistry().register(TileEntityType.Builder.create(FloorFrameTile::new, ModBlocks.WALL_FRAME).build(null).setRegistryName("fantasy20:wall_frame"));
+       e.getRegistry().register(TileEntityType.Builder.create(WallFrameTile::new, ModBlocks.WALL_FRAME).build(null).setRegistryName("fantasy20:wall_frame"));
     }
     
     @SubscribeEvent

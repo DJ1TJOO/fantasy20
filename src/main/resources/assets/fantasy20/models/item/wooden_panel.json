@@ -2,5 +2,8 @@
     "parent": "item/generated",
     "textures": {
         "layer0": "fantasy20:item/wooden_panel"
-    }
+    },
+  	"overrides": [
+    	{ "predicate": {"fantasy20:rotate_90": 1}, "model": "fantasy20:item/wooden_panel_90" }
+  	]
 }

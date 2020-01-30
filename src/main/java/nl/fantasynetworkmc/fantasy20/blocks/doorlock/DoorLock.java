@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,6 +42,10 @@ public class DoorLock extends DoorLockBlock {
 	public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
 		
 	}
+	
+	public PushReaction getPushReaction(final BlockState p_149656_1_) {
+        return PushReaction.IGNORE;
+    }
 	
 	@Override
 	public boolean canConnectRedstone(BlockState state, IBlockReader world, BlockPos pos, Direction side) {

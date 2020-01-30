@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import nl.fantasynetworkmc.fantasy20.PanelTypes;
@@ -50,6 +52,19 @@ public class FloorFrame extends Block {
 				.harvestLevel(0));
 		setRegistryName("fantasy20:floor_frame");
 		this.setDefaultState(this.getDefaultState().with(CONNECTED_EAST, Boolean.FALSE).with(CONNECTED_WEST, Boolean.FALSE).with(CONNECTED_SOUTH, Boolean.FALSE).with(CONNECTED_NORTH, Boolean.FALSE).with(FRAME_TYPE, PanelTypes.WOODEN.getValue()));
+	}
+	
+	@Override
+	public float getBlockHardness(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
+		//TODO 
+		return this.blockHardness;
+	}
+	
+	@Override
+	public float getExplosionResistance(BlockState state, IWorldReader world, BlockPos pos, Entity exploder,
+			Explosion explosion) {
+		//TODO 
+		return this.blockResistance;
 	}
 	
 	@Override
@@ -95,17 +110,21 @@ public class FloorFrame extends Block {
 				FloorFrameTile te2 = (FloorFrameTile) te;
 				List<FloorFrameTile> list = new ArrayList<FloorFrameTile>();
 				list = getNeighboringTiles(te2, list);
-				for (FloorFrameTile woodenFloorFrameTile : list) {
-					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						woodenFloorFrameTile.setPanelType(PanelTypes.WOODEN);
-						woodenFloorFrameTile.markDirty();
+				if(te2.getPanelType().equals(PanelTypes.NONE)) {
+					if(player.getHeldItemMainhand().getCount() > 0) {
+						te2.setPanelType(PanelTypes.WOODEN);
+						te2.markDirty();
 						player.getHeldItemMainhand().shrink(1);
 					}
 				}
-				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					te2.setPanelType(PanelTypes.WOODEN);
-					te2.markDirty();
-					player.getHeldItemMainhand().shrink(1);
+				for (FloorFrameTile woodenFloorFrameTile : list) {
+					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
+						if(player.getHeldItemMainhand().getCount() > 0) {
+							woodenFloorFrameTile.setPanelType(PanelTypes.WOODEN);
+							woodenFloorFrameTile.markDirty();
+							player.getHeldItemMainhand().shrink(1);
+						}
+					}
 				}
 			}
 		} else if(player.getHeldItemMainhand().getItem().equals(ModItems.STONE_PANEL)) {
@@ -114,17 +133,21 @@ public class FloorFrame extends Block {
 				FloorFrameTile te2 = (FloorFrameTile) te;
 				List<FloorFrameTile> list = new ArrayList<FloorFrameTile>();
 				list = getNeighboringTiles(te2, list);
-				for (FloorFrameTile woodenFloorFrameTile : list) {
-					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						woodenFloorFrameTile.setPanelType(PanelTypes.STONE);
-						woodenFloorFrameTile.markDirty();
+				if(te2.getPanelType().equals(PanelTypes.NONE)) {
+					if(player.getHeldItemMainhand().getCount() > 0) {
+						te2.setPanelType(PanelTypes.STONE);
+						te2.markDirty();
 						player.getHeldItemMainhand().shrink(1);
 					}
 				}
-				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					te2.setPanelType(PanelTypes.STONE);
-					te2.markDirty();
-					player.getHeldItemMainhand().shrink(1);
+				for (FloorFrameTile woodenFloorFrameTile : list) {
+					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
+						if(player.getHeldItemMainhand().getCount() > 0) {
+							woodenFloorFrameTile.setPanelType(PanelTypes.STONE);
+							woodenFloorFrameTile.markDirty();
+							player.getHeldItemMainhand().shrink(1);
+						}
+					}
 				}
 			}
 		} else if(player.getHeldItemMainhand().getItem().equals(ModItems.METAL_PANEL)) {
@@ -135,15 +158,19 @@ public class FloorFrame extends Block {
 				list = getNeighboringTiles(te2, list);
 				for (FloorFrameTile woodenFloorFrameTile : list) {
 					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						woodenFloorFrameTile.setPanelType(PanelTypes.METAL);
-						woodenFloorFrameTile.markDirty();
-						player.getHeldItemMainhand().shrink(1);
+						if(player.getHeldItemMainhand().getCount() > 0) {
+							woodenFloorFrameTile.setPanelType(PanelTypes.METAL);
+							woodenFloorFrameTile.markDirty();
+							player.getHeldItemMainhand().shrink(1);
+						}
 					}
 				}
 				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					te2.setPanelType(PanelTypes.METAL);
-					te2.markDirty();
-					player.getHeldItemMainhand().shrink(1);
+					if(player.getHeldItemMainhand().getCount() > 0) {
+						te2.setPanelType(PanelTypes.METAL);
+						te2.markDirty();
+						player.getHeldItemMainhand().shrink(1);
+					}
 				}
 			}
 		}
