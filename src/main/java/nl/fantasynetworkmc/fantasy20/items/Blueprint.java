@@ -46,7 +46,7 @@ public class Blueprint extends Item {
 	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getName()));
 	    		   }
 	    	   });
-	       }
+	       } 
 	    return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
 		
 	}
