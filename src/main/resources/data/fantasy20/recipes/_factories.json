@@ -1,0 +1,5 @@
+{
+	"conditions" : {
+		"researched" : "nl.fantasynetworkmc.fantasy20.recipe.conditions.ResearchedCondition"
+	}
+}
