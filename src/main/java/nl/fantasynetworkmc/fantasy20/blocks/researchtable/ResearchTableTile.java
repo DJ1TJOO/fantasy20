@@ -215,7 +215,7 @@ public class ResearchTableTile extends TileEntity implements ITickableTileEntity
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-            	if(slot == INPUT_SLOT) {
+            	if(slot == INPUT_SLOT || slot == INPUT_SLOT_3 || slot == INPUT_SLOT_4 || slot == INPUT_SLOT_5) {
             		if(stack.getItem() instanceof Scrap) {
             			return true;
             		} else {

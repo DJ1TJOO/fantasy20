@@ -3,7 +3,7 @@
     "pattern":
     [
         "xxx",
-        "xyx",
+        "x x",
         "xxx"
     ],
     "key":
@@ -11,15 +11,11 @@
         "x":
         {
             "tag":"minecraft:logs"
-        },
- 		"y":
-        {
-            "tag":"minecraft:planks"
         }
     },
     "result":
     {
-        "item": "fantasy20:floor_frame",
+        "item": "fantasy20:wall_frame",
         "count": 1
     } 
 }

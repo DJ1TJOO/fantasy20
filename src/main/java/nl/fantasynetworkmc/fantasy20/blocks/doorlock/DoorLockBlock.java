@@ -208,14 +208,14 @@ public class DoorLockBlock extends Block {
        
     }
     
-    public boolean isValidPosition(final BlockState p_196260_1_, final IWorldReader p_196260_2_, final BlockPos p_196260_3_) {
-        final BlockPos lvt_4_1_ = p_196260_3_.down();
-        final BlockState lvt_5_1_ = p_196260_2_.getBlockState(lvt_4_1_);
-        if (p_196260_1_.get((IProperty)DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
-            return lvt_5_1_.func_224755_d((IBlockReader)p_196260_2_, lvt_4_1_, Direction.UP);
-        }
-        return lvt_5_1_.getBlock() == this;
-    }
+//    public boolean isValidPosition(final BlockState p_196260_1_, final IWorldReader p_196260_2_, final BlockPos p_196260_3_) {
+//        final BlockPos lvt_4_1_ = p_196260_3_.down();
+//        final BlockState lvt_5_1_ = p_196260_2_.getBlockState(lvt_4_1_);
+//        if (p_196260_1_.get((IProperty)DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
+//            return lvt_5_1_.func_224755_d((IBlockReader)p_196260_2_, lvt_4_1_, Direction.UP);
+//        }
+//        return lvt_5_1_.getBlock() == this;
+//    }
     
     private void playSound(final World p_196426_1_, final BlockPos p_196426_2_, final boolean p_196426_3_) {
         p_196426_1_.playEvent((PlayerEntity)null, p_196426_3_ ? this.getOpenSound() : this.getCloseSound(), p_196426_2_, 0);

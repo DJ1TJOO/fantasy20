@@ -2,15 +2,20 @@ package nl.fantasynetworkmc.fantasy20.setup;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -108,6 +113,22 @@ public class RegistryEvents {
         		}
     		} 
     	}
+    }
+    
+    @SubscribeEvent
+    public void attachCapabilities(AttachCapabilitiesEvent<Entity> event){
+        if(event.getObject() instanceof PlayerEntity) {
+            //event.addCapability(, new );
+            System.out.println("Capability added");
+        }
+    }
+    
+    @SubscribeEvent
+    public void onCraft(PlayerEvent.ItemCraftedEvent event) {
+       if(event.isCanceled()) {
+    	   return;
+       }
+       //event.getPlayer()
     }
     
     @SubscribeEvent
