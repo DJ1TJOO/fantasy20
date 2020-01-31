@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import nl.fantasynetworkmc.fantasy20.setup.ClientProxy;
+import nl.fantasynetworkmc.fantasy20.setup.GameEvents;
 import nl.fantasynetworkmc.fantasy20.setup.IProxy;
 import nl.fantasynetworkmc.fantasy20.setup.ModSetup;
 import nl.fantasynetworkmc.fantasy20.setup.RegistryEvents;
@@ -27,6 +28,7 @@ public class Fantasy20 {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(RegistryEvents.class); 
+        MinecraftForge.EVENT_BUS.register(GameEvents.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

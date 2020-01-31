@@ -24,39 +24,6 @@ public class CapabilityResearchProvider implements ICapabilitySerializable<INBT>
     @CapabilityInject(IResearchCapability.class)
     public static Capability<IResearchCapability> RESEARCH_CAPABILITY = null;
     
-    private final LazyOptional<CapabilityResearch> holder = LazyOptional.of(CapabilityResearch::new);
-    
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-
-        return cap == RESEARCH_CAPABILITY ? holder.cast() : LazyOptional.empty();
-    }
-
-    @Override
-    public INBT serializeNBT() {
-        NonNullSupplier<CapabilityResearch> nonNullSupplier = new NonNullSupplier<CapabilityResearch>() {
-            @Nonnull
-            @Override
-            public CapabilityResearch get() {
-                return null;
-            }
-        };
-        return RESEARCH_CAPABILITY.getStorage().writeNBT(RESEARCH_CAPABILITY, holder.orElseGet(nonNullSupplier), null);
-    }
-
-    @Override
-    public void deserializeNBT(INBT nbt) {
-        NonNullSupplier<CapabilityResearch> nonNullSupplier = new NonNullSupplier<CapabilityResearch>() {
-            @Nonnull
-            @Override
-            public CapabilityResearch get() {
-                return null;
-            }
-        };
-        RESEARCH_CAPABILITY.getStorage().readNBT(RESEARCH_CAPABILITY, holder.orElseGet(nonNullSupplier), null, nbt);
-    }
-        
     public static void register() {
     	CapabilityManager.INSTANCE.register(IResearchCapability.class, new Capability.IStorage<IResearchCapability>() {
 
@@ -83,6 +50,39 @@ public class CapabilityResearchProvider implements ICapabilitySerializable<INBT>
 				}
 			}
 		}, CapabilityResearch::new);
+    }
+    
+    private final LazyOptional<CapabilityResearch> holder = LazyOptional.of(CapabilityResearch::new);
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+    	System.err.println("d");
+        return cap == RESEARCH_CAPABILITY ? holder.cast() : LazyOptional.empty();
+    }
+
+    @Override
+    public INBT serializeNBT() {
+        NonNullSupplier<CapabilityResearch> nonNullSupplier = new NonNullSupplier<CapabilityResearch>() {
+            @Nonnull
+            @Override
+            public CapabilityResearch get() {
+                return null;
+            }
+        };
+        return RESEARCH_CAPABILITY.getStorage().writeNBT(RESEARCH_CAPABILITY, holder.orElseGet(nonNullSupplier), null);
+    }
+
+    @Override
+    public void deserializeNBT(INBT nbt) {
+        NonNullSupplier<CapabilityResearch> nonNullSupplier = new NonNullSupplier<CapabilityResearch>() {
+            @Nonnull
+            @Override
+            public CapabilityResearch get() {
+                return null;
+            }
+        };
+        RESEARCH_CAPABILITY.getStorage().readNBT(RESEARCH_CAPABILITY, holder.orElseGet(nonNullSupplier), null, nbt);
     }
 
 }
