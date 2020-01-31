@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
-import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearch;
+import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearchProvider;
 
 public class Blueprint extends Item {
 
@@ -37,13 +37,13 @@ public class Blueprint extends Item {
 	    	   }
 	    	   String itemString = tag.getCompound("data").getString("item");
 			   System.err.println("b");
-	    	   playerIn.getCapability(CapabilityResearch.RESEARCH_CAPABILITY, playerIn.getHorizontalFacing()).ifPresent(r -> {
+	    	   playerIn.getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, null).ifPresent(r -> {
 	    		   System.err.println("c");
 	    		   Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.create(itemString, ':'));
 	    		   System.err.println("d");
 	    		   if(!r.getResearched().contains(item)) {
 	    			   r.getResearched().add(item);
-	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getName()));
+	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getName() + " nog geresearched!"));
 	    		   }
 	    	   });
 	       } 

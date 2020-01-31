@@ -7,7 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import nl.fantasynetworkmc.fantasy20.blocks.ModBlocks;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTable;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTableRecipe;
-import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearch;
+import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearchProvider;
 import nl.fantasynetworkmc.fantasy20.items.ModItems;
 import nl.fantasynetworkmc.fantasy20.packets.DoorBlockUpdatePacket;
 import nl.fantasynetworkmc.fantasy20.packets.DoorLockTileCodeUpdatePacket;
@@ -25,7 +25,7 @@ public class ModSetup {
 	};
 	
 	public void init() {
-		CapabilityResearch.register();
+		CapabilityResearchProvider.register();
 		
 		PacketHandler.INSTANCE.registerMessage(DoorBlockUpdatePacket.DOOR_BLOCK_UPDATE, DoorBlockUpdatePacket.class, DoorBlockUpdatePacket::encode, DoorBlockUpdatePacket::decode, DoorBlockUpdatePacket::handle);
 		PacketHandler.INSTANCE.registerMessage(DoorLockTileCodeUpdatePacket.DOORLOCK_TILE_CODE_UPDATE, DoorLockTileCodeUpdatePacket.class, DoorLockTileCodeUpdatePacket::encode, DoorLockTileCodeUpdatePacket::decode, DoorLockTileCodeUpdatePacket::handle);

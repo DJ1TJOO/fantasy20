@@ -9,7 +9,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -31,7 +33,7 @@ import nl.fantasynetworkmc.fantasy20.blocks.ores.MetalOre;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTable;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTableContainer;
 import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTableTile;
-import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearch;
+import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearchProvider;
 import nl.fantasynetworkmc.fantasy20.items.Blueprint;
 import nl.fantasynetworkmc.fantasy20.items.Metal;
 import nl.fantasynetworkmc.fantasy20.items.Scrap;
@@ -118,18 +120,25 @@ public class RegistryEvents {
     @SubscribeEvent
     public void attachCapabilities(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof PlayerEntity) {
-            //event.addCapability(, new );
-            System.out.println("Capability added");
+            event.addCapability(new ResourceLocation("fantasy20:capability_research"), new CapabilityResearchProvider());
         }
     }
     
     @SubscribeEvent
     public void onCraft(PlayerEvent.ItemCraftedEvent event) {
+        System.err.println("A");
        if(event.isCanceled()) {
     	   return;
        }
-       event.getPlayer().getCapability(CapabilityResearch.RESEARCH_CAPABILITY, event.getPlayer().getHorizontalFacing()).ifPresent(r -> {
-    	   
+       System.err.println("a");
+       event.getPlayer().getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, null).ifPresent(r -> {
+           System.err.println("b");
+    	   if(ResearchTable.getRecipe(event.getCrafting()) != null) {
+    		   if(!r.getResearched().contains(event.getCrafting().getItem())) {
+    			   event.getPlayer().sendMessage(new StringTextComponent("Je hebt het item " + event.getCrafting().getItem().getName() + " nog niet geresearched!"));
+    			   event.setCanceled(true);
+    		   }
+    	   }
        });
        //event.getPlayer()
     }
