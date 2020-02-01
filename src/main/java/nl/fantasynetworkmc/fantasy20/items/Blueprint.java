@@ -43,7 +43,7 @@ public class Blueprint extends Item {
 	    		   System.err.println("d");
 	    		   if(!r.getResearched().contains(item)) {
 	    			   r.getResearched().add(item);
-	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getName() + " nog geresearched!"));
+	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getDefaultInstance().getDisplayName().getFormattedText() + " geresearched!"));
 	    		   }
 	    	   });
 	       } 

@@ -51,25 +51,23 @@ public class GameEvents {
     }
 	
 	@SubscribeEvent
-    public void attachCapabilities(AttachCapabilitiesEvent<Entity> event){
-    	Fantasy20.LOGGER.info("attachCapabilities" + event.getObject().getEntityString());
+    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event){
+    	//Fantasy20.LOGGER.info("attachCapabilities" + event.getObject().getEntityString());
         if(event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(Fantasy20.MODID, "capability_research"), new CapabilityResearchProvider());
         }
     }
     
     @SubscribeEvent
-    public void onCraft(PlayerEvent.ItemCraftedEvent event) {
-        System.err.println("A");
+    public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
        if(event.isCanceled()) {
     	   return;
        }
-       System.err.println("a");
        event.getPlayer().getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, null).ifPresent(r -> {
-           System.err.println("b");
+    	   System.err.println("dd");
     	   if(ResearchTable.getRecipe(event.getCrafting()) != null) {
     		   if(!r.getResearched().contains(event.getCrafting().getItem())) {
-    			   event.getPlayer().sendMessage(new StringTextComponent("Je hebt het item " + event.getCrafting().getItem().getName() + " nog niet geresearched!"));
+    			   event.getPlayer().sendMessage(new StringTextComponent("Je hebt het item " + event.getCrafting().getDisplayName().getFormattedText() + " nog niet geresearched!"));
     			   event.setCanceled(true);
     		   }
     	   }
@@ -78,11 +76,11 @@ public class GameEvents {
     }
     
     @SubscribeEvent
-    public void openGui(GuiOpenEvent event) {
+    public static void openGui(GuiOpenEvent event) {
        if(event.getGui() instanceof MainMenuScreen) {
-    	   MainMenuScreen main = (MainMenuScreen)event.getGui();
-    	   event.setGui(new CustomMainScreen(main));
+    	 //  MainMenuScreen main = (MainMenuScreen)event.getGui();
+    	 //  event.setGui(new CustomMainScreen(main));
        }
-	   System.err.println("GuiOpenEvent FIRED: " + event.getGui().getTitle());
+	   //System.err.println("GuiOpenEvent FIRED: " + event.getGui().getTitle());
     }
 }
