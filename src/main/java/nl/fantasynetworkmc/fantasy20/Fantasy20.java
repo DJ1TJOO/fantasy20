@@ -23,7 +23,7 @@ public class Fantasy20 {
 	public static ModSetup setup = new ModSetup();
 	public static String MODID = "fantasy20";
 	public static final Logger LOGGER = LogManager.getLogger();
-
+	
     public Fantasy20() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

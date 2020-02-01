@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:crafting_shaped",
+    "type": "fantasy20:shaped_researched_recipe",
     "pattern":
     [
         "xx",
@@ -10,7 +10,12 @@
     {
         "x":
         {
-            "item": "fantasy20:metal"
+            "item": "fantasy20:metal",
+			"conditions": [
+			  {
+			    "condition": "fantasy20:researched"
+			  }
+			]
         }
     },
     "result":
