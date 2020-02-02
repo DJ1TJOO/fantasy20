@@ -7,7 +7,8 @@ import nl.fantasynetworkmc.fantasy20.Fantasy20;
 public class ResearchedCondition implements ICondition {
 
     private static final ResourceLocation NAME = new ResourceLocation(Fantasy20.MODID, "researched_condition");
-    private final ResourceLocation item;
+    @SuppressWarnings("unused")
+	private final ResourceLocation item;
 
     public ResearchedCondition(String location) {
         this(new ResourceLocation(location));

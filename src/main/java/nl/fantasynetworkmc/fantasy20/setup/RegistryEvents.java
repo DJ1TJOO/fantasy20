@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -29,6 +30,9 @@ import nl.fantasynetworkmc.fantasy20.items.Scrap;
 import nl.fantasynetworkmc.fantasy20.items.panels.MetalPanel;
 import nl.fantasynetworkmc.fantasy20.items.panels.StonePanel;
 import nl.fantasynetworkmc.fantasy20.items.panels.WoodenPanel;
+import nl.fantasynetworkmc.fantasy20.recipe.types.BlastingResearchedRecipe;
+import nl.fantasynetworkmc.fantasy20.recipe.types.ShapedResearchedRecipe;
+import nl.fantasynetworkmc.fantasy20.recipe.types.ShapelessResearchedRecipe;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEvents {
@@ -58,6 +62,14 @@ public class RegistryEvents {
     		new StonePanel(properties),
     		new MetalPanel(properties),
     		new Scrap(properties));
+    }
+    
+    @SubscribeEvent
+    public static void onRecipeRegister(final RegistryEvent.Register<IRecipeSerializer<?>> e) {
+    	e.getRegistry().registerAll(
+    			new ShapedResearchedRecipe.Serializer(),
+    			new ShapelessResearchedRecipe.Serializer(),
+    			new BlastingResearchedRecipe.Serializer());
     }
     
     @SubscribeEvent

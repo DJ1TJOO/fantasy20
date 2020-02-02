@@ -46,6 +46,14 @@ public class ModSetup {
 		blueprint = new ItemStack(ModItems.BLUEPRINT, 1);
 		blueprint.setTag(tag);
 		ResearchTable.recipes.add(new ResearchTableRecipe(blueprint, ModBlocks.DOORLOCK.asItem(), 10, 10));
+
+		tag = new CompoundNBT();
+		data = new CompoundNBT();
+		data.putString("item", "fantasy20:metal");
+		tag.put("data", data);
+		blueprint = new ItemStack(ModItems.BLUEPRINT, 1);
+		blueprint.setTag(tag);
+		ResearchTable.recipes.add(new ResearchTableRecipe(blueprint, ModItems.METAL, 10, 10));
 	}
 	
 }

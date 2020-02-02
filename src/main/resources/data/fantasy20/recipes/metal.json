@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:blasting",
+    "type": "fantasy20:blasting_researched_recipe",
     "ingredient":
     {
         "item": "fantasy20:metal_ore"

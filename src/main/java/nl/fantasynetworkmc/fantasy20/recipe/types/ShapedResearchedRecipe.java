@@ -1,5 +1,7 @@
 package nl.fantasynetworkmc.fantasy20.recipe.types;
 
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,8 +15,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
@@ -24,9 +30,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearchProvider;
 
-public class ShapedResearchedRecipe implements ResearchedRecipe, IShapedRecipe<CraftingInventory> {
+public class ShapedResearchedRecipe implements IShapedRecipe<CraftingInventory>, ICraftingRecipe {
 	static int MAX_WIDTH = 3;
 	static int MAX_HEIGHT = 3;
 	
@@ -35,7 +43,7 @@ public class ShapedResearchedRecipe implements ResearchedRecipe, IShapedRecipe<C
       	if (MAX_HEIGHT < height) MAX_HEIGHT = height;
 	}
 	
-	IRecipeSerializer<ShapedResearchedRecipe> CRAFTING_SHAPED_RESEARCHED =  IRecipeSerializer.register("fantasy20:shaped_researched_recipe", new ShapedResearchedRecipe.Serializer());
+	//IRecipeSerializer<ShapedResearchedRecipe> CRAFTING_SHAPED_RESEARCHED =  IRecipeSerializer.register("fantasy20:shaped_researched_recipe", new ShapedResearchedRecipe.Serializer());
 	private final int recipeWidth;
 	private final int recipeHeight;
 	private final NonNullList<Ingredient> recipeItems;
@@ -62,19 +70,40 @@ public class ShapedResearchedRecipe implements ResearchedRecipe, IShapedRecipe<C
 	
 	@Override
 	public boolean matches(CraftingInventory inv, World worldIn) {
-		 for(int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
-	         for(int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
-	            if (this.checkMatch(inv, i, j, true)) {
-	               return true;
-	            }
-
-	            if (this.checkMatch(inv, i, j, false)) {
-	               return true;
-	            }
-	         }
-	      }
-
-	      return false;
+		try {
+			Field field = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70465_c");
+			Container container = (Container) field.get(inv);
+			Field field2 = ObfuscationReflectionHelper.findField(Container.class, "listeners");
+			@SuppressWarnings("unchecked")
+			List<IContainerListener> listeners = (List<IContainerListener>) field2.get(container);
+			for (IContainerListener iContainerListener : listeners) {
+				if(iContainerListener instanceof ServerPlayerEntity) {
+					ServerPlayerEntity p = (ServerPlayerEntity) iContainerListener;
+					if(!p.getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, p.getHorizontalFacing()).map(r -> {
+						if(!r.getResearched().contains(getCraftingResult(inv).getItem())) {
+							return false;
+						}
+						return true;
+					}).orElse(Boolean.FALSE)) {
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for(int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
+			for(int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
+				if (this.checkMatch(inv, i, j, true)) {
+					return true;
+				}
+		
+				if (this.checkMatch(inv, i, j, false)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	private boolean checkMatch(CraftingInventory craftingInventory, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
@@ -126,7 +155,7 @@ public class ShapedResearchedRecipe implements ResearchedRecipe, IShapedRecipe<C
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return CRAFTING_SHAPED_RESEARCHED;
+		return ModRecipe.CRAFTING_SHAPED_RESEARCHED;
 	}
 
 	@Override
@@ -138,7 +167,7 @@ public class ShapedResearchedRecipe implements ResearchedRecipe, IShapedRecipe<C
 	public int getRecipeHeight() {
 		return recipeHeight;
 	}
-	
+
 	private static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight) {
 	      NonNullList<Ingredient> nonnulllist = NonNullList.withSize(patternWidth * patternHeight, Ingredient.EMPTY);
 	      Set<String> set = Sets.newHashSet(keys.keySet());

@@ -14,12 +14,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class CapabilityResearchProvider implements ICapabilitySerializable<INBT> {
+public class CapabilityResearchProvider implements ICapabilitySerializable<INBT>, ICapabilityProvider {
 
     @CapabilityInject(IResearchCapability.class)
     public static Capability<IResearchCapability> RESEARCH_CAPABILITY = null;
@@ -57,7 +58,7 @@ public class CapabilityResearchProvider implements ICapabilitySerializable<INBT>
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-    	System.err.println("d");
+    	//System.err.println("d");
         return cap == RESEARCH_CAPABILITY ? holder.cast() : LazyOptional.empty();
     }
 

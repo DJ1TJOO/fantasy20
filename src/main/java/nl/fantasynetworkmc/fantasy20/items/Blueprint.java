@@ -22,9 +22,12 @@ public class Blueprint extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-	       System.err.println("A");
+	      // System.err.println("A");
+		if(worldIn.isRemote) {
+		    return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
+		}
 	       if(playerIn.getHeldItem(handIn).getItem() instanceof Blueprint) {
-			   System.err.println("a");
+			   //System.err.println("a");
 	    	   if(!playerIn.getHeldItem(handIn).hasTag()) {
 	    		   return super.onItemRightClick(worldIn, playerIn, handIn);
 	    	   }
@@ -36,14 +39,17 @@ public class Blueprint extends Item {
 	    		   return super.onItemRightClick(worldIn, playerIn, handIn);
 	    	   }
 	    	   String itemString = tag.getCompound("data").getString("item");
-			   System.err.println("b");
+			   //System.err.println("b");
 	    	   playerIn.getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, null).ifPresent(r -> {
-	    		   System.err.println("c");
+	    		  // System.err.println("c");
 	    		   Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.create(itemString, ':'));
-	    		   System.err.println("d");
+	    		  // System.err.println("d");
 	    		   if(!r.getResearched().contains(item)) {
 	    			   r.getResearched().add(item);
 	    			   playerIn.sendMessage(new StringTextComponent("Je hebt het item " + item.getDefaultInstance().getDisplayName().getFormattedText() + " geresearched!"));
+	    			   playerIn.getHeldItem(handIn).shrink(1);
+	    			  // System.err.println(playerIn.serializeNBT().toString());
+		    		   //System.err.println(r.getResearched().toString());
 	    		   }
 	    	   });
 	       } 
