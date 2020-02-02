@@ -1,5 +1,8 @@
 package nl.fantasynetworkmc.fantasy20.recipe.types;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -7,7 +10,10 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -19,7 +25,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import nl.fantasynetworkmc.fantasy20.capabilities.research.CapabilityResearchProvider;
 
 public class ShapelessResearchedRecipe implements ICraftingRecipe {
 	
@@ -47,6 +55,28 @@ public class ShapelessResearchedRecipe implements ICraftingRecipe {
 	
 	@Override
 	public boolean matches(CraftingInventory inv, World worldIn) {
+		try {
+			Field field = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70465_c");
+			Container container = (Container) field.get(inv);
+			Field field2 = ObfuscationReflectionHelper.findField(Container.class, "listeners");
+			@SuppressWarnings("unchecked")
+			List<IContainerListener> listeners = (List<IContainerListener>) field2.get(container);
+			for (IContainerListener iContainerListener : listeners) {
+				if(iContainerListener instanceof ServerPlayerEntity) {
+					ServerPlayerEntity p = (ServerPlayerEntity) iContainerListener;
+					if(!p.getCapability(CapabilityResearchProvider.RESEARCH_CAPABILITY, p.getHorizontalFacing()).map(r -> {
+						if(!r.getResearched().contains(getCraftingResult(inv).getItem())) {
+							return false;
+						}
+						return true;
+					}).orElse(Boolean.FALSE)) {
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
 	      java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
 	      int i = 0;
