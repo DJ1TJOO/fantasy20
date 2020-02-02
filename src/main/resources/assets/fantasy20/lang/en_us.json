@@ -10,6 +10,8 @@
 	"item.fantasy20.wooden_panel" : "Wooden Panel",
 	"item.fantasy20.stone_panel" : "Stone Panel",
 	"item.fantasy20.metal_panel" : "Metal Panel",
+	"item.fantasy20.stone_frame_upgrade" : "Stone Frame Upgrade",
+	"item.fantasy20.metal_frame_upgrade" : "Metal Frame Upgrade",
 	"item.fantasy20.metal" : "Metal",
 	"item.fantasy20.scrap" : "Scrap",
 	"item.fantasy20.blueprint" : "Blueprint",

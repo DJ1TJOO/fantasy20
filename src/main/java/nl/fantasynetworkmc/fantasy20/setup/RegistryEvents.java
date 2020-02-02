@@ -27,9 +27,11 @@ import nl.fantasynetworkmc.fantasy20.blocks.researchtable.ResearchTableTile;
 import nl.fantasynetworkmc.fantasy20.items.Blueprint;
 import nl.fantasynetworkmc.fantasy20.items.Metal;
 import nl.fantasynetworkmc.fantasy20.items.Scrap;
-import nl.fantasynetworkmc.fantasy20.items.panels.MetalPanel;
-import nl.fantasynetworkmc.fantasy20.items.panels.StonePanel;
-import nl.fantasynetworkmc.fantasy20.items.panels.WoodenPanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.MetalPanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.StonePanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.WoodenPanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.upgrades.MetalFrameUpgrade;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.upgrades.StoneFrameUpgrade;
 import nl.fantasynetworkmc.fantasy20.recipe.types.BlastingResearchedRecipe;
 import nl.fantasynetworkmc.fantasy20.recipe.types.ShapedResearchedRecipe;
 import nl.fantasynetworkmc.fantasy20.recipe.types.ShapelessResearchedRecipe;
@@ -61,6 +63,8 @@ public class RegistryEvents {
     		new WoodenPanel(properties),
     		new StonePanel(properties),
     		new MetalPanel(properties),
+    		new MetalFrameUpgrade(properties),
+    		new StoneFrameUpgrade(properties),
     		new Scrap(properties));
     }
     

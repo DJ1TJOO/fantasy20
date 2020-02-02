@@ -11,9 +11,9 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import nl.fantasynetworkmc.fantasy20.PanelTypes;
 import nl.fantasynetworkmc.fantasy20.items.ModItems;
-import nl.fantasynetworkmc.fantasy20.items.panels.MetalPanel;
-import nl.fantasynetworkmc.fantasy20.items.panels.StonePanel;
-import nl.fantasynetworkmc.fantasy20.items.panels.WoodenPanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.MetalPanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.StonePanel;
+import nl.fantasynetworkmc.fantasy20.items.building.frame.panels.WoodenPanel;
 
 @SuppressWarnings("deprecation")
 public class WallFrameRenderer extends TileEntityRenderer<WallFrameTile> {

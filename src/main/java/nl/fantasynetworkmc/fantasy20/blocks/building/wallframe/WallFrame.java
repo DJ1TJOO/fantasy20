@@ -59,16 +59,95 @@ public class WallFrame extends Block {
 	}
 	
 	@Override
-	public float getBlockHardness(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
-		//TODO 
-		return this.blockHardness;
+	public int getHarvestLevel(BlockState state) {
+		if(state.has(FRAME_TYPE)) {
+			switch (state.get(FRAME_TYPE)) {
+				case 1: //wooden
+					return 0;
+				case 2: //stone
+					return 1;
+				case 3: //metal
+					return 3;
+
+				default:
+					break;
+			}
+		}
+		return 0;
+	}
+	
+	@Override
+	public SoundType getSoundType(BlockState state) {
+		if(state.has(FRAME_TYPE)) {
+			switch (state.get(FRAME_TYPE)) {
+				case 1: //wooden
+					return SoundType.WOOD;
+				case 2: //stone
+					return SoundType.STONE;
+				case 3: //metal
+					return SoundType.METAL;
+
+				default:
+					break;
+			}
+		}
+		return SoundType.WOOD;
+	}
+	
+	@Override
+	public ToolType getHarvestTool(BlockState state) {
+		if(state.has(FRAME_TYPE)) {
+			switch (state.get(FRAME_TYPE)) {
+				case 1: //wooden
+					return ToolType.AXE;
+				case 2: //stone
+					return ToolType.PICKAXE;
+				case 3: //metal
+					return ToolType.PICKAXE;
+
+				default:
+					break;
+			}
+		}
+		return ToolType.AXE;
+	}
+	
+	@Override
+	public float getBlockHardness(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		if(state.has(FRAME_TYPE)) {
+			switch (state.get(FRAME_TYPE)) {
+				case 1: //wooden
+					return 10;
+				case 2: //stone
+					return 20f;
+				case 3: //metal
+					return 50;
+
+				default:
+					break;
+			}
+		}
+		return 2;
 	}
 	
 	@Override
 	public float getExplosionResistance(BlockState state, IWorldReader world, BlockPos pos, Entity exploder,
 			Explosion explosion) {
-		//TODO 
-		return this.blockResistance;
+		//18000000 | bedrock
+		if(state.has(FRAME_TYPE)) {
+			switch (state.get(FRAME_TYPE)) {
+				case 1: //wooden
+					return 18000000;
+				case 2: //stone
+					return 19000000;
+				case 3: //metal
+					return 20000000;
+
+				default:
+					break;
+			}
+		}
+		return 18000000;
 	}
 	
 	@Override
@@ -86,7 +165,7 @@ public class WallFrame extends Block {
 	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
 			BlockRayTraceResult hit) {
 		worldIn.setBlockState(pos, state.with(CONNECTED_UP, isSideConnectable(worldIn, pos, Direction.UP, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_DOWN, isSideConnectable(worldIn, pos, Direction.DOWN, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_EAST, isSideConnectable(worldIn, pos, Direction.EAST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_WEST, isSideConnectable(worldIn, pos, Direction.WEST, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_SOUTH, isSideConnectable(worldIn, pos, Direction.SOUTH, state.get(BlockStateProperties.HORIZONTAL_FACING))).with(CONNECTED_NORTH, isSideConnectable(worldIn, pos, Direction.NORTH, state.get(BlockStateProperties.HORIZONTAL_FACING))));
-		if(player.isSneaking() && player.getHeldItemMainhand().getItem().equals(Items.AIR)) {
+		if(player.isSneaking() && player.getHeldItem(handIn).getItem().equals(Items.AIR)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
 				WallFrameTile te2 = (WallFrameTile) te;
@@ -109,73 +188,89 @@ public class WallFrame extends Block {
 				}
 			}
 		}
-		if(player.getHeldItemMainhand().getItem().equals(ModItems.WOODEN_PANEL)) {
+		if(player.getHeldItem(handIn).getItem().equals(ModItems.WOODEN_PANEL)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
 				WallFrameTile te2 = (WallFrameTile) te;
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					if(player.getHeldItemMainhand().getCount() > 0) {
+					if(player.getHeldItem(handIn).getCount() > 0) {
 						te2.setPanelType(PanelTypes.WOODEN);
 						te2.markDirty();
-						player.getHeldItemMainhand().shrink(1);
+						player.getHeldItem(handIn).shrink(1);
 					}
 				}
 				for (WallFrameTile woodenFloorFrameTile : list) {
 					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						if(player.getHeldItemMainhand().getCount() > 0) {
+						if(player.getHeldItem(handIn).getCount() > 0) {
 							woodenFloorFrameTile.setPanelType(PanelTypes.WOODEN);
 							woodenFloorFrameTile.markDirty();
-							player.getHeldItemMainhand().shrink(1);
+							player.getHeldItem(handIn).shrink(1);
 						}
 					}
 				}
 			}
-		} else if(player.getHeldItemMainhand().getItem().equals(ModItems.STONE_PANEL)) {
+		} else if(player.getHeldItem(handIn).getItem().equals(ModItems.STONE_PANEL)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
 				WallFrameTile te2 = (WallFrameTile) te;
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					if(player.getHeldItemMainhand().getCount() > 0) {
+					if(player.getHeldItem(handIn).getCount() > 0) {
 						te2.setPanelType(PanelTypes.STONE);
 						te2.markDirty();
-						player.getHeldItemMainhand().shrink(1);
+						player.getHeldItem(handIn).shrink(1);
 					}
 				}
 				for (WallFrameTile woodenFloorFrameTile : list) {
 					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						if(player.getHeldItemMainhand().getCount() > 0) {
+						if(player.getHeldItem(handIn).getCount() > 0) {
 							woodenFloorFrameTile.setPanelType(PanelTypes.STONE);
 							woodenFloorFrameTile.markDirty();
-							player.getHeldItemMainhand().shrink(1);
+							player.getHeldItem(handIn).shrink(1);
 						}
 					}
 				}
 			}
-		} else if(player.getHeldItemMainhand().getItem().equals(ModItems.METAL_PANEL)) {
+		} else if(player.getHeldItem(handIn).getItem().equals(ModItems.METAL_PANEL)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof WallFrameTile) {
 				WallFrameTile te2 = (WallFrameTile) te;
 				List<WallFrameTile> list = new ArrayList<WallFrameTile>();
 				list = getNeighboringTiles(te2, list);
 				if(te2.getPanelType().equals(PanelTypes.NONE)) {
-					if(player.getHeldItemMainhand().getCount() > 0) {
+					if(player.getHeldItem(handIn).getCount() > 0) {
 						te2.setPanelType(PanelTypes.METAL);
 						te2.markDirty();
-						player.getHeldItemMainhand().shrink(1);
+						player.getHeldItem(handIn).shrink(1);
 					}
 				}
 				for (WallFrameTile woodenFloorFrameTile : list) {
 					if(woodenFloorFrameTile.getPanelType().equals(PanelTypes.NONE)) {
-						if(player.getHeldItemMainhand().getCount() > 0) {
+						if(player.getHeldItem(handIn).getCount() > 0) {
 							woodenFloorFrameTile.setPanelType(PanelTypes.METAL);
 							woodenFloorFrameTile.markDirty();
-							player.getHeldItemMainhand().shrink(1);
+							player.getHeldItem(handIn).shrink(1);
 						}
 					}
+				}
+			}
+		} else if(player.getHeldItem(handIn).getItem().equals(ModItems.STONE_FRAME_UPGRADE)) {
+			if(state.has(FRAME_TYPE)) {
+				if(state.get(FRAME_TYPE) == PanelTypes.NONE.getValue()) {
+					state = state.with(FRAME_TYPE, PanelTypes.STONE.getValue());
+					player.getHeldItem(handIn).shrink(1);
+					worldIn.setBlockState(pos, state);
+				}
+			}
+		} else if(player.getHeldItem(handIn).getItem().equals(ModItems.METAL_FRAME_UPGRADE)) {
+			if(state.has(FRAME_TYPE)) {
+				if(state.get(FRAME_TYPE) == PanelTypes.NONE.getValue()) {
+					state = state.with(FRAME_TYPE, PanelTypes.METAL.getValue());
+					player.getHeldItem(handIn).shrink(1);
+					worldIn.setBlockState(pos, state);
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-package nl.fantasynetworkmc.fantasy20.items.panels;
+package nl.fantasynetworkmc.fantasy20.items.building.frame.panels;
 
 import javax.annotation.Nullable;
 
@@ -11,24 +11,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import nl.fantasynetworkmc.fantasy20.Fantasy20;
 
-public class WoodenPanel extends Item {
+public class StonePanel extends Item {
 	public static final String ROTATE_90 = "rotate_90";
-	 
-	public WoodenPanel(Properties properties) {
+
+	public StonePanel(Properties properties) {
 		super(properties);
-		setRegistryName("fantasy20:wooden_panel");
+		setRegistryName("fantasy20:stone_panel");
 		addPropertyOverride(new ResourceLocation(Fantasy20.MODID, "rotate_90"), new IItemPropertyGetter() {
 			
 			@Override
 			public float call(ItemStack stack, World world, LivingEntity entity) {
-				return WoodenPanel.getPropertyRotate90(stack, entity);
+				return StonePanel.getPropertyRotate90(stack, entity);
 			}
 		});
 	}
 	
 	public static float getPropertyRotate90 (ItemStack stack, @Nullable LivingEntity entityIn) {
-        if (!stack.isEmpty() && stack.getItem() instanceof WoodenPanel)
-            return WoodenPanel.rotate90(stack) ? 1.f : 0.f; // 0 - not empty
+        if (!stack.isEmpty() && stack.getItem() instanceof StonePanel)
+            return StonePanel.rotate90(stack) ? 1.f : 0.f; // 0 - not empty
         return 0.f;
     }
 
